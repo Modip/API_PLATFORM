@@ -31,20 +31,20 @@ class ApiController extends AbstractController
 
         try
         {
-            $test = $serializer->deserialize($jsonRecu, Compteph::class, 'json');
+            $compteph = $serializer->deserialize($jsonRecu, Compteph::class, 'json');
 
-            $error = $validator->validate($test);
+            $error = $validator->validate($compteph);
 
             if(count($error) > 0)
             {
                 return $this->json($error, 400);
             }
 
-            $em->persist($test);
+            $em->persist($compteph);
 
             $em->flush();
 
-            return $this->json($test, 201, [], ['groups'=>'compteph:read']);
+            return $this->json($compteph, 201, [], ['groups'=>'compteph:read']);
             
         }catch(NotEncodableValueException $e){
 
